@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Leonard Masemula · Software development and IT support</title>
+<meta name="description" content="Leonard Masemula: software development, IT support and application support in Midrand, South Africa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF1F4; --surface:#FFFFFF; --ink:#14213D; --muted:#4F5F74;
+  --rule:#C9D1DA; --signal:#E0A100; --signal-ink:#7A5600; --deep:#14213D; --on-deep:#F3F5F8; --on-deep-muted:#B7C2D3;
+  --grid:rgba(20,33,61,.07);
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1828; --surface:#16233A; --ink:#E6EBF2; --muted:#A3B0C2;
+    --rule:#2B3A55; --signal:#F2B632; --signal-ink:#F2B632; --deep:#1B2B48; --on-deep:#F3F5F8; --on-deep-muted:#B7C2D3;
+    --grid:rgba(230,235,242,.06);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1828; --surface:#16233A; --ink:#E6EBF2; --muted:#A3B0C2;
+  --rule:#2B3A55; --signal:#F2B632; --signal-ink:#F2B632; --deep:#1B2B48; --on-deep:#F3F5F8; --on-deep-muted:#B7C2D3;
+  --grid:rgba(230,235,242,.06);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  font-size:1.0625rem; line-height:1.55;
+}
+a{color:inherit; text-decoration-color:var(--signal); text-decoration-thickness:2px; text-underline-offset:3px}
+a:hover{color:var(--signal-ink)}
+:focus-visible{outline:3px solid var(--signal); outline-offset:3px; border-radius:3px}
+.wrap{max-width:74rem; margin-left:auto; margin-right:auto; padding-left:clamp(1.25rem,4vw,3rem); padding-right:clamp(1.25rem,4vw,3rem)}
+
+/* ---------- Hero ---------- */
+.hero{
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;
+  border-bottom:1px solid var(--rule);
+}
+.hero .wrap{display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(2rem,5vw,4.5rem); align-items:center; padding-top:clamp(3rem,8vw,6rem); padding-bottom:clamp(3rem,7vw,5.5rem)}
+h1{margin:0; font-weight:800; font-variation-settings:"wdth" 125; font-size:clamp(2.8rem,7.4vw,6rem); line-height:.9; letter-spacing:-.025em}
+h1 span{display:block}
+.role{margin:1.4rem 0 0; font-size:clamp(1.1rem,2vw,1.35rem); font-weight:650; font-variation-settings:"wdth" 88; color:var(--muted)}
+.pitch{max-width:34rem; margin:1.4rem 0 0; font-size:1.2rem; line-height:1.5}
+.actions{display:flex; flex-wrap:wrap; gap:.85rem; margin-top:2rem}
+.btn{
+  display:inline-flex; align-items:center; gap:.5rem; padding:.85rem 1.35rem; border-radius:999px;
+  font-weight:700; text-decoration:none; border:2px solid var(--ink); transition:background .15s,color .15s;
+}
+.btn.primary{background:var(--signal); border-color:var(--signal); color:#14213D}
+.btn.primary:hover{background:transparent; color:var(--ink)}
+.btn.ghost:hover{background:var(--ink); color:var(--bg)}
+.where{margin:1.25rem 0 0; color:var(--muted); font-size:.98rem}
+
+/* Route map */
+.map{background:var(--surface); border:1px solid var(--rule); border-radius:14px; padding:1.25rem 1.25rem 1rem; box-shadow:0 18px 40px -24px rgba(20,33,61,.45)}
+.map svg{display:block; width:100%; height:auto}
+.map .track{fill:none; stroke:var(--rule); stroke-width:10; stroke-linecap:round}
+.map .live{fill:none; stroke:var(--signal); stroke-width:4; stroke-linecap:round; stroke-dasharray:2 12}
+.map .node{fill:var(--surface); stroke:var(--ink); stroke-width:4}
+.map .node.start{fill:var(--signal)}
+.map .lbl{fill:var(--ink); font:700 20px "Archivo",system-ui,sans-serif}
+.map .sub{fill:var(--muted); font:500 15px "Archivo",system-ui,sans-serif}
+.map .truck{fill:var(--signal); stroke:var(--ink); stroke-width:2.5}
+.map figcaption{margin:.6rem .25rem 0; font-size:.93rem; color:var(--muted)}
+
+/* ---------- Facts ---------- */
+.facts-bar{border-bottom:1px solid var(--rule)}
+.facts{display:grid; grid-template-columns:repeat(3,1fr); gap:0; margin-top:0; margin-bottom:0; list-style:none}
+.facts li{padding:clamp(1.5rem,3vw,2.25rem) clamp(1.25rem,3vw,2.5rem); border-right:1px solid var(--rule)}
+.facts li:first-child{padding-left:0}
+.facts li:last-child{border-right:0}
+.facts b{display:block; font-size:clamp(1.8rem,3.6vw,2.6rem); font-weight:800; font-variation-settings:"wdth" 118; line-height:1}
+.facts span{display:block; margin-top:.45rem; color:var(--muted); max-width:18rem}
+
+/* ---------- Sections ---------- */
+section{padding-top:clamp(3rem,7vw,5rem); padding-bottom:clamp(3rem,7vw,5rem)}
+h2{margin:0 0 .6rem; font-size:clamp(1.7rem,3.4vw,2.5rem); font-weight:800; font-variation-settings:"wdth" 115; letter-spacing:-.015em; line-height:1.05}
+.intro{margin:0 0 2.5rem; color:var(--muted); max-width:42rem; font-size:1.1rem}
+
+/* Two sides */
+.sides{display:grid; grid-template-columns:1fr 1fr; gap:clamp(1.25rem,3vw,2rem)}
+.side{background:var(--surface); border:1px solid var(--rule); border-radius:14px; padding:clamp(1.5rem,3vw,2.25rem)}
+.side.build{background:var(--deep); border-color:var(--deep); color:var(--on-deep)}
+.side h3{margin:0; font-size:1.45rem; font-weight:800; font-variation-settings:"wdth" 110}
+.side p{margin:.6rem 0 1.4rem; color:var(--muted)}
+.side.build p{color:var(--on-deep-muted)}
+.chips{display:flex; flex-wrap:wrap; gap:.5rem; margin:0; padding:0; list-style:none}
+.chips li{padding:.4rem .8rem; border-radius:999px; border:1.5px solid var(--rule); font-size:.92rem; font-weight:600}
+.side.build .chips li{border-color:rgba(243,245,248,.25)}
+.side.build .chips li.key{background:var(--signal); border-color:var(--signal); color:#14213D}
+.side .chips li.key{border-color:var(--signal)}
+
+/* Career route */
+.route{position:relative; list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:2.75rem 2rem}
+.route::before{display:none}
+@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.stop{position:relative; padding-top:2.6rem}
+.stop::after{
+  content:""; position:absolute; top:.55rem; left:0; right:-2rem; height:6px; background:var(--signal); border-radius:3px;
+  transform-origin:left; animation:draw .9s cubic-bezier(.6,0,.2,1) both .3s;
+}
+.stop:nth-child(3n)::after, .stop:last-child::after{right:0}
+.stop::before{content:""; position:absolute; top:0; left:0; width:1.35rem; height:1.35rem; border-radius:50%; background:var(--bg); border:5px solid var(--ink); z-index:1}
+.stop.now::before{background:var(--signal)}
+.when{font-weight:750; font-variation-settings:"wdth" 80; color:var(--signal-ink); font-size:.95rem}
+.stop h3{margin:.35rem 0 .15rem; font-size:1.15rem; line-height:1.25; font-weight:750}
+.org{margin:0 0 .85rem; color:var(--muted); font-size:.95rem}
+.stop ul{margin:0; padding-left:1.1rem; font-size:.97rem}
+.stop li{margin:.35rem 0}
+
+/* Platforms */
+.platforms{border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:clamp(2rem,4vw,2.75rem) 0}
+.platforms .wrap{display:flex; flex-wrap:wrap; align-items:center; gap:1rem 2rem}
+.platforms h2{font-size:1.25rem; margin:0; font-variation-settings:"wdth" 100; max-width:15rem; line-height:1.25}
+.platforms .chips{flex:1}
+.platforms .chips li{background:var(--surface)}
+
+/* Education */
+.edu{display:flex; flex-wrap:wrap; align-items:baseline; gap:.4rem 1.5rem; margin:0}
+.edu strong{font-size:clamp(1.4rem,2.6vw,1.8rem); font-variation-settings:"wdth" 112}
+.edu span{color:var(--muted); font-size:1.1rem}
+
+/* Contact */
+.contact{background:var(--deep); color:var(--on-deep); padding:clamp(3rem,7vw,5rem) 0}
+.contact h2{max-width:40rem}
+.contact p{color:var(--on-deep-muted); max-width:38rem; font-size:1.1rem; margin:.4rem 0 2rem}
+.contact .btn.ghost{border-color:var(--on-deep); color:var(--on-deep)}
+.contact .btn.ghost:hover{background:var(--on-deep); color:#14213D}
+.contact .btn.primary:hover{color:var(--on-deep); border-color:var(--signal)}
+.contact .small{margin-top:2.25rem; font-size:.95rem}
+.contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,5vw,4.5rem); align-items:start}
+.form{background:rgba(243,245,248,.06); border:1px solid rgba(243,245,248,.18); border-radius:14px; padding:clamp(1.25rem,3vw,2rem)}
+.field{margin-bottom:1.1rem}
+.field label{display:block; font-weight:700; margin-bottom:.4rem; color:var(--on-deep)}
+.field .opt{font-weight:500; color:var(--on-deep-muted)}
+.field input,.field textarea{
+  width:100%; font:inherit; color:#14213D; background:#F3F5F8; border:2px solid transparent; border-radius:8px; padding:.7rem .85rem;
+}
+.field textarea{resize:vertical; min-height:7.5rem}
+.field input:focus,.field textarea:focus{outline:none; border-color:var(--signal)}
+.field input[aria-invalid="true"],.field textarea[aria-invalid="true"]{border-color:#FF8A7A}
+.field .hint{display:block; margin-top:.35rem; font-size:.88rem; color:var(--on-deep-muted)}
+.trap{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden}
+.contact .form p.status{margin:1rem 0 0; font-size:1rem; min-height:1.5em; color:var(--on-deep)}
+.status.ok{color:#9BE3B0 !important}
+.status.err{color:#FFB4A8 !important}
+.send{cursor:pointer; font-size:1rem}
+.send[disabled]{opacity:.6; cursor:wait}
+
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr}
+  .sides{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .route{grid-template-columns:1fr; gap:2.25rem; padding-left:2.25rem}
+  .route::before{display:block; content:""; position:absolute; left:.55rem; top:0; bottom:0; width:6px; background:var(--signal); border-radius:3px; transform-origin:top; animation:drawv 1.2s cubic-bezier(.6,0,.2,1) both .3s}
+  .stop::after{display:none}
+  .stop{padding-top:0}
+  .stop::before{left:-2.25rem; top:.1rem}
+}
+@media (max-width:640px){
+  .facts{grid-template-columns:1fr}
+  .facts li{border-right:0; border-bottom:1px solid var(--rule); padding-left:0}
+  .facts li:last-child{border-bottom:0}
+}
+@keyframes drawv{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes flow{to{stroke-dashoffset:-28}}
+.map .live{animation:flow 1.4s linear infinite}
+@media (prefers-reduced-motion:reduce){
+  .route::before,.stop::after,.map .live{animation:none}
+  .map .truck-move{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <h1><span>Leonard</span><span>Masemula</span></h1>
+      <p class="role">Software development, IT support and application support</p>
+      <p class="pitch">I keep business systems running for the people who rely on them, and I can work in the code behind them too.</p>
+      <div class="actions">
+        <a class="btn primary" href="#contact">Contact Leonard</a>
+        <a class="btn ghost" href="#route-h">See his career route</a>
+      </div>
+      <p class="where">Glen Austin, Midrand · Software Development, Tshwane University of Technology</p>
+    </div>
+
+    <figure class="map" style="margin:0">
+      <svg viewBox="0 0 520 310" role="img" aria-labelledby="map-t">
+        <title id="map-t">How Leonard works a problem: an issue is reported, he diagnoses it, then resolves it either through user support or with a fix in the code, until the system is back in service.</title>
+        <path class="track" d="M50 150 H190"/>
+        <path class="track" d="M190 150 C250 150 260 70 320 70 C380 70 400 150 460 150"/>
+        <path class="track" d="M190 150 C250 150 260 230 320 230 C380 230 400 150 460 150"/>
+        <path class="live" d="M50 150 H190"/>
+        <path class="live" d="M190 150 C250 150 260 70 320 70 C380 70 400 150 460 150"/>
+        <path class="live" d="M190 150 C250 150 260 230 320 230 C380 230 400 150 460 150"/>
+        <g class="truck-move">
+          <rect class="truck" x="-11" y="-8" width="22" height="16" rx="4">
+            <animateMotion dur="6s" begin="0s" repeatCount="indefinite" rotate="auto" path="M50 150 H190 C250 150 260 70 320 70 C380 70 400 150 460 150"/>
+          </rect>
+          <rect class="truck" x="-11" y="-8" width="22" height="16" rx="4">
+            <animateMotion dur="6s" begin="-3s" repeatCount="indefinite" rotate="auto" path="M50 150 H190 C250 150 260 230 320 230 C380 230 400 150 460 150"/>
+          </rect>
+        </g>
+        <circle class="node" cx="50" cy="150" r="13"/>
+        <circle class="node" cx="190" cy="150" r="9"/>
+        <circle class="node" cx="320" cy="70" r="11"/>
+        <circle class="node" cx="320" cy="230" r="11"/>
+        <circle class="node start" cx="460" cy="150" r="13"/>
+        <text class="lbl" x="18" y="192">Issue</text>
+        <text class="sub" x="18" y="210">reported</text>
+        <text class="lbl" x="186" y="124" text-anchor="middle">Diagnose</text>
+        <text class="lbl" x="320" y="28" text-anchor="middle">User support</text>
+        <text class="sub" x="320" y="48" text-anchor="middle">access, settings, training</text>
+        <text class="lbl" x="320" y="270" text-anchor="middle">Code fix</text>
+        <text class="sub" x="320" y="288" text-anchor="middle">debug, patch, test</text>
+        <text class="lbl" x="460" y="192" text-anchor="middle">Back in</text>
+        <text class="lbl" x="460" y="214" text-anchor="middle">service</text>
+      </svg>
+      <figcaption>How Leonard works a problem: find the cause, then fix it for the user or fix it in the code, until the system is running again.</figcaption>
+    </figure>
+  </div>
+</header>
+
+<main>
+  <div class="facts-bar"><ul class="facts wrap" aria-label="Quick facts">
+    <li><b>Since 2005</b><span>working in IT, starting with building computers and IT support</span></li>
+    <li><b>8 platforms</b><span>for transport and fleet tracking operated and supported at Eskom</span></li>
+    <li><b>Both sides</b><span>of business software: supporting it and developing it</span></li>
+  </ul></div>
+
+  <section class="wrap" aria-labelledby="sides-h">
+    <h2 id="sides-h">Two sides of the same system</h2>
+    <p class="intro">Most people either support software or build it. Leonard has done both, so he understands what users need and what the code is doing.</p>
+    <div class="sides">
+      <div class="side">
+        <h3>When it needs to keep running</h3>
+        <p>Troubleshooting, user support and data integrity on systems the business can’t do without.</p>
+        <ul class="chips">
+          <li class="key">Application support</li><li class="key">End-user support</li><li>Troubleshooting</li>
+          <li>Network setup</li><li>System administration</li><li>Linux</li><li>Data integrity</li>
+          <li>Reporting</li><li>Microsoft Office</li><li>Microsoft Access</li>
+        </ul>
+      </div>
+      <div class="side build">
+        <h3>When it needs to be built</h3>
+        <p>Web applications and business systems, debugged and maintained as part of a development team.</p>
+        <ul class="chips">
+          <li class="key">PHP</li><li class="key">JavaScript</li><li class="key">Node.js</li><li class="key">VB.NET</li>
+          <li>HTML5</li><li>CSS3</li><li>ASP.NET</li><li>VBScript</li><li>MySQL</li><li>SQL Server</li>
+          <li>XAMPP</li><li>Git/GitHub</li><li>Photoshop</li><li>Illustrator</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="route-h" style="padding-top:0">
+    <h2 id="route-h">Career route</h2>
+    <p class="intro">From building computers and a call centre, through school IT support and two web development teams, to supporting a live transport system.</p>
+    <ol class="route">
+      <li class="stop">
+        <div class="when">2005–2006</div>
+        <h3>IT Support</h3>
+        <p class="org">Qhawe IT Solutions</p>
+        <ul>
+          <li>Built computers and installed software</li>
+          <li>Recorded and edited audio</li>
+          <li>Duplicated audio for functions with a multi-duplicator</li>
+        </ul>
+      </li>
+      <li class="stop">
+        <div class="when">2007</div>
+        <h3>Call Centre Agent</h3>
+        <p class="org">Platinum Insurance</p>
+        <ul>
+          <li>Outbound insurance sales</li>
+        </ul>
+      </li>
+      <li class="stop">
+        <div class="when">2008–2014</div>
+        <h3>IT Support and Administrator</h3>
+        <p class="org">Platorand LSEN School, Department of Education</p>
+        <ul>
+          <li>End-user support, hardware and software troubleshooting</li>
+          <li>Network setup and system administration across the school</li>
+          <li>Built and maintained departmental Microsoft Access databases</li>
+        </ul>
+      </li>
+      <li class="stop">
+        <div class="when">Mar–Aug 2019</div>
+        <h3>Web Developer</h3>
+        <p class="org">Mkholo Projects, SITA Programme</p>
+        <ul>
+          <li>Contributed to client web apps in HTML, CSS, PHP, JavaScript and Node.js</li>
+          <li>Found and fixed bugs alongside senior developers</li>
+          <li>Produced graphics for print and digital marketing</li>
+        </ul>
+      </li>
+      <li class="stop">
+        <div class="when">Jan–Jun 2020</div>
+        <h3>Web Developer &amp; Graphic Designer</h3>
+        <p class="org">VMRC, TETA and DoT</p>
+        <ul>
+          <li>Developed and maintained web applications</li>
+          <li>Debugged issues during development and testing</li>
+          <li>Created visual assets in Photoshop and Illustrator</li>
+        </ul>
+      </li>
+      <li class="stop now">
+        <div class="when">2022–2024</div>
+        <h3>Data and Fleet Administrator</h3>
+        <p class="org">Mrholozi Group, Eskom</p>
+        <ul>
+          <li>Supported the in-house TMS (VB.NET, VBScript, ASP, MySQL): troubleshooting, data integrity, reporting</li>
+          <li>Ran daily coal-transport coordination on the TMS</li>
+          <li>Liaised with Eskom, Transnet, mines, drivers and suppliers</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+
+  <div class="platforms">
+    <div class="wrap">
+      <h2>Transport and fleet platforms he’s worked with</h2>
+      <ul class="chips">
+        <li>TMS</li><li>Tontrack</li><li>Eskom ECAS</li><li>HSES</li><li>Surecam</li><li>Fleetcam</li><li>Cartrack</li><li>Tracker</li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="wrap" aria-labelledby="edu-h">
+    <h2 id="edu-h">Education</h2>
+    <p class="edu"><strong>Software Development</strong><span>Tshwane University of Technology, 2019</span></p>
+  </section>
+</main>
+
+<footer class="contact" id="contact">
+  <div class="wrap contact-grid">
+    <div>
+      <h2>Need someone who can support your systems and grow as a developer?</h2>
+      <p>Leonard is open to roles in junior software development, IT support and application support, based in Midrand. Send him a message and he’ll reply by email.</p>
+      <p class="small">References available on request.</p>
+    </div>
+
+    <form class="form" id="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+      <input type="hidden" name="access_key" value="b142e845-24bd-4ebb-a416-70433322ff14">
+      <input type="hidden" name="from_name" value="Leonard Masemula profile website">
+      <div class="field">
+        <label for="cf-name">Your name</label>
+        <input id="cf-name" name="name" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="cf-email">Your email</label>
+        <input id="cf-email" name="email" type="email" autocomplete="email" required>
+        <span class="hint">So Leonard can reply to you.</span>
+      </div>
+      <div class="field">
+        <label for="cf-company">Company <span class="opt">(optional)</span></label>
+        <input id="cf-company" name="company" type="text" autocomplete="organization">
+      </div>
+      <div class="field">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" rows="5" required></textarea>
+      </div>
+      <div class="trap" aria-hidden="true">
+        <label for="cf-botcheck">Leave this box unticked</label>
+        <input id="cf-botcheck" name="botcheck" type="checkbox" tabindex="-1" autocomplete="off">
+      </div>
+      <input type="hidden" name="subject" value="New message from your profile website">
+      <button class="btn primary send" type="submit">Send message</button>
+      <p class="status" id="cf-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var form = document.getElementById('contact-form');
+  var status = document.getElementById('cf-status');
+  var button = form.querySelector('button[type="submit"]');
+  var notConnected = form.querySelector('[name="access_key"]').value === 'YOUR_ACCESS_KEY';
+
+  function say(text, kind) { status.textContent = text; status.className = 'status ' + (kind || ''); }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var bad = null;
+    ['cf-name', 'cf-email', 'cf-message'].forEach(function (id) {
+      var el = document.getElementById(id);
+      var ok = el.value.trim() !== '' && (el.type !== 'email' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()));
+      el.setAttribute('aria-invalid', ok ? 'false' : 'true');
+      if (!ok && !bad) bad = el;
+    });
+    if (bad) { say('Fill in your name, a valid email address and a message.', 'err'); bad.focus(); return; }
+    if (notConnected) { say('This form isn’t connected yet, so the message wasn’t sent. Please try again later.', 'err'); return; }
+
+    button.disabled = true; button.textContent = 'Sending…'; say('');
+    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (res) {
+        if (!res.ok || !res.d || res.d.success !== true) throw new Error('send failed');
+        form.reset();
+        say('Message sent. Leonard will reply to the email address you gave.', 'ok');
+      })
+      .catch(function () {
+        say('Your message didn’t send. Check your connection and try again.', 'err');
+      })
+      .then(function () { button.disabled = false; button.textContent = 'Send message'; });
+  });
+})();
+if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('animateMotion').forEach(function (a) { a.remove(); });
+}
+</script>
+</body>
+</html>
